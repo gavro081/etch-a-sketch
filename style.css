@@ -1,0 +1,38 @@
+* {
+    font-family: sans-serif;
+    background-color: lightpink;
+}
+
+.sketch-grid{
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 700px;
+    background-color: aqua;
+}
+
+.square {
+    flex: 1;
+    display: inline-block;
+    background-color: red;
+    border: black solid 0.1px;
+}
+
+.rows-grid{
+    /* display: block; */
+    /* border: solid black 2px; */
+    display: flex;
+    flex: 1;
+}
+
+.select-size-button{
+    margin-left: 230px;
+    margin-top: 25px;
+    background-color: blue;
+    color: white;
+    font-size: large;
+    padding: 10px 30px;
+    font-weight: 600;
+    border: solid black 1px;
+    border-radius: 30px;
+}
