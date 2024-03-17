@@ -1,29 +1,64 @@
 const grid = document.querySelector('.sketch-grid')
 
-// const sq1 = document.createElement('div');
-// // const sq2 = document.createElement('div');
-// // const sq3 = document.createElement('div');
+let selectedColor = document.querySelector('.color-picker');
 
-// sq1.addEventListener("mouseover", function (e){
-//     e.target.style.background = "blue";
-// })
+selectedColor.addEventListener("input", () => {
+    targetSquares(selectedColor.value);
 
-// sq1.addEventListener("mouseleave", function (e){
-//     e.target.style.background = "red";
-// })
+    colorButton.style.background = selectedColor.value;
+
+})
+
+const backgroundColor = document.querySelector('.background-color-picker');
+
+backgroundColor.addEventListener("input", () => {
+    
+    bgSquares = document.querySelectorAll('.square');
+
+    for (let i = 0; i < bgSquares.length; i++){
+        bgSquares[i].style.background = backgroundColor.value;
+    }
+
+    eraser.style.background = backgroundColor.value;
+
+})
+
+const eraser = document.querySelector('.eraser');
 
 
-// sq1.classList.add('square');
-// sq2.classList.add('square');
-// sq3.classList.add('square');
+const colorButton = document.querySelector('.color-button')
 
-// grid.appendChild(sq1);
-// grid.appendChild(sq2);
-// grid.appendChild(sq3);
 
-let sizePrev; 
-let hasPlayed = false;
+function targetSquares (color) {
 
+    bgSquares = document.querySelectorAll('.square');
+    
+    for (let i = 0; i < bgSquares.length; i++){
+        bgSquares[i].addEventListener("mouseover", function (e){
+            e.target.style.background = color;
+    })
+    }
+}
+
+function targetRandomSquares () {
+    bgSquares = document.querySelectorAll('.square');
+    
+    for (let i = 0; i < bgSquares.length; i++){
+        bgSquares[i].addEventListener("mouseover", function (e){
+            e.target.style.background = getRandomColor();
+    })
+    }
+}
+
+// function targetGradientSquares () {
+//     bgSquares = document.querySelectorAll('.square');
+    
+//     for (let i = 0; i < bgSquares.length; i++){
+//         bgSquares[i].addEventListener("mouseover", function (e){
+//             e.target.style.opacity -= 0.3;
+//     })
+//     }
+// }
 function makeGrid (size) {
    
     grid.innerHTML = '';
@@ -39,22 +74,15 @@ function makeGrid (size) {
             squares[i].push(document.createElement('div'));
             squares[i][j].classList.add('square');
 
-            
-            squares[i][j].addEventListener("mouseover", function (e){
-                e.target.style.background = "blue";
-            })
-
-
-        // squares[i][j].addEventListener("mouse", function (e){
-        //     e.target.style.background = "red";
-        // })
 
         rows[i].appendChild(squares[i][j]);
 
         }
         grid.appendChild(rows[i]);
     }
+    targetSquares('#ff00ff');
 }
+
 
 
 makeGrid(18);
@@ -71,4 +99,11 @@ document.querySelector('.select-size-button').addEventListener("click", () => {
 })
 
 
-
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let randomColor = '#';
+    for (let i = 0; i < 6; i++){
+        randomColor += letters[Math.floor(Math.random() * 16)];
+    }
+    return randomColor;
+}

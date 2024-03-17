@@ -9,6 +9,12 @@
 <body>
     <div class="sketch-grid"></div>
     <button class="select-size-button">Select Grid-Dimensions</button>
+    <input type="color" class="background-color-picker" value="#ffffff">
+    <input type="color" class="color-picker" value="#ff00ff">
+    <button class="eraser" onclick="targetSquares(backgroundColor.value);">Eraser</button>
+    <button class="color-button" onclick="targetSquares(selectedColor.value)">Color</button>
+    <button class="random-color-button" onclick="targetRandomSquares()">Random</button>
+    <button class="gradient-button" onclick="targetGradientSquares()">Gradient</button>
     <script src="script.js"></script>
 </body>
 </html>
