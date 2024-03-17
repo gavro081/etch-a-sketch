@@ -14,7 +14,8 @@
 .square {
     flex: 1;
     display: inline-block;
-    background-color: white;
+    /* background-color: white; */
+    background-color: #bbbbbb;
     border: black solid 0.1px;
 }
 
@@ -56,4 +57,8 @@
     background: linear-gradient(90deg, black, #333333, #666666, #999999, #bbbbbb, #ffffff);
     background-color: #999999;
     color: white;
+}
+
+.gradient-square {
+    background-color: #bbbbbb;
 }
