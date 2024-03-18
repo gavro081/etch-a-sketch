@@ -7,14 +7,41 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="sketch-grid"></div>
-    <button class="select-size-button">Select Grid-Dimensions</button>
-    <input type="color" class="background-color-picker" value="#ffffff">
-    <input type="color" class="color-picker" value="#ff00ff">
-    <button class="eraser" onclick="targetSquares(backgroundColor.value);">Eraser</button>
-    <button class="color-button" onclick="targetSquares(selectedColor.value)">Color</button>
-    <button class="random-color-button" onclick="targetRandomSquares()">Random</button>
-    <button class="gradient-button" onclick="targetGradientSquares()">Gradient</button>
+    <h1>Etch-A-Sketch</h1>
+    <div class="flexbox">
+        <div class="grid-select-size-div">
+            <div class="sketch-grid"></div> 
+            <input type="range" min="1" max="60" value="30" class="size-slider">
+            <p class="slider-label">Select size: </p>
+        </div>
+        <div class="buttons-div">
+            <div class="background-div">
+                <input type="color" class="background-color-picker" value="#ffffff">
+                <p>Choose Background</p>
+            </div>    
+            <div class="color-div">
+                <input type="color" class="color-picker" value="#ff00ff">
+                <p>Choose Color</p>
+            </div>
+            <button class="eraser" onclick="{
+                eraserON = true;
+                targetSquares(backgroundColor.value)};
+                "
+            >Eraser</button>
+            <button class="color-button" onclick="{
+                eraserON = false;
+                targetSquares(selectedColor.value)
+                }"
+                >Color</button>
+
+            <button class="random-color-button" onclick="targetRandomSquares()">Random</button>
+
+            <button class="gradient-button" onclick="targetGradientSquares()">Gradient</button>
+        </div>
+        <div class="color-picker-div">
+            
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

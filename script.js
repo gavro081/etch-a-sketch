@@ -4,14 +4,16 @@ const grid = document.querySelector('.sketch-grid')
 const backgroundColor = document.querySelector('.background-color-picker');
 const eraser = document.querySelector('.eraser');
 const colorButton = document.querySelector('.color-button')
-
-let size;
-
-
+const slider = document.querySelector('.size-slider');
+const sliderLabel = document.querySelector('.slider-label');
 let selectedColor = document.querySelector('.color-picker');
+let size;
+let gradientON = false;
+let eraserON = false;
 
 selectedColor.addEventListener("input", () => {
     targetSquares(selectedColor.value);
+
 
     colorButton.style.background = selectedColor.value;
 
@@ -19,29 +21,36 @@ selectedColor.addEventListener("input", () => {
 
 backgroundColor.addEventListener("input", () => {
     
+    eraser.style.background = backgroundColor.value;
+    
     bgSquares = document.querySelectorAll('.square');
 
     for (let i = 0; i < bgSquares.length; i++){
         bgSquares[i].style.background = backgroundColor.value;
     }
-
-    eraser.style.background = backgroundColor.value;
+    
 
 })
 
 
 function targetSquares (color) {
 
+    gradientON = false;
+
     bgSquares = document.querySelectorAll('.square');
     
     for (let i = 0; i < bgSquares.length; i++){
+
             bgSquares[i].addEventListener("mouseover", function (e){
                 e.target.style.background = color;
+                if (eraserON) bgSquares[i].classList.remove('gradient-1', 'gradient-2', 'gradient-3', 'gradient-4', 'gradient-5');
         })
     }
 }
 
 function targetRandomSquares () {
+    gradientON = false;
+    eraserON = false;
     bgSquares = document.querySelectorAll('.square');
     
     for (let i = 0; i < bgSquares.length; i++){
@@ -51,19 +60,38 @@ function targetRandomSquares () {
     }
 }
 
-const gradientArray = [
-    '#dddddd',
-    '#bbbbbb',
-    '#999999',
-    '#777777',
-    '#555555',
-    '#333333',
-    '#000000'
-];
 
+function checkWhichGradient(square) {
+    if (gradientON){
+
+    if (square.classList.contains('gradient-1')) {
+        square.classList.remove('gradient-1');
+        square.classList.add('gradient-2');
+    }
+    else if (square.classList.contains('gradient-2')) {
+        square.classList.remove('gradient-2');
+        square.classList.add('gradient-3');
+    }
+    else if (square.classList.contains('gradient-3')) {
+        square.classList.remove('gradient-3');
+        square.classList.add('gradient-4');
+    }
+    else if (square.classList.contains('gradient-4')) {
+        square.classList.remove('gradient-4');
+        square.classList.add('gradient-5');
+    }
+    else {
+        if (!square.classList.contains('gradient-5'))
+        square.classList.add('gradient-1');
+    }
+}
+}
 
 
 function targetGradientSquares () {
+
+    gradientON = true;
+    eraserON = false;
 
     bgSquares = document.querySelectorAll('.square');
     
@@ -71,20 +99,9 @@ function targetGradientSquares () {
 
         bgSquares[i].addEventListener("mouseover", function (e){
 
-            let a = e.target.style.background;
+            // e.target.style.background = '';
 
-            if (!bgSquares[i].classList.contains('.gradient')) {
-                bgSquares[i].classList.add('.gradient');
-                e.target.style.background = '#dddddd';
-            }
-            else {
-                // find value / index
-                
-                // either decrement brightness by 10%, or directly change rgb value to 
-                // the next in the array 
-
-                //make sure to remove the classes in the other functions
-            }
+            checkWhichGradient(bgSquares[i]);
             
         })
     }
@@ -116,14 +133,10 @@ function makeGrid (size) {
 
 makeGrid(18);
 
-document.querySelector('.select-size-button').addEventListener("click", () => {
-    do {
-        size = prompt('Select dimensions of grid (< 100');
-    }
-    while (size > MAX_SIZE);
-
-    makeGrid(size);
-})
+slider.oninput = () => {
+    sliderLabel.innerText = `Select size: ${slider.value}`;
+    makeGrid(slider.value);
+}
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
